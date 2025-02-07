@@ -1,19 +1,16 @@
 using Domain;
-using Application;
 using Mediator;
+using Application.Requests;
 
 namespace Web.Types;
 
 [QueryType]
 public static class Query
 {
-    public static async Task<Book> GetBook(IMediator mediator, CancellationToken cancellationToken)
-    {
-        return await mediator.Send(new GetBookQuery(), cancellationToken);
-    }
+    public static async Task<Chore?> GetChore(IMediator mediator, CancellationToken cancellationToken) =>
+        await mediator.Send(new GetChoreRequest(), cancellationToken);
 
-    public static async Task<Chore?> GetChore(IMediator mediator, CancellationToken cancellationToken)
-    {
-        return await mediator.Send(new GetChoreQuery(), cancellationToken);
-    }
+    public static async ValueTask<IEnumerable<Chore>> GetChores(IMediator mediator, CancellationToken cancellationToken) =>
+             await mediator.Send(new GetAllChoresRequest(), cancellationToken);
+
 }

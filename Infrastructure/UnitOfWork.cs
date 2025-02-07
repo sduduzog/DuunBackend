@@ -9,7 +9,6 @@ public class UnitOfWork(ApplicationDbContext context) : IUnitOfWork
 
   public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
   {
-    Console.WriteLine("---saving changes");
     return await _context.SaveChangesAsync(cancellationToken);
   }
 
@@ -26,7 +25,6 @@ public class UnitOfWork(ApplicationDbContext context) : IUnitOfWork
 
     if (disposing)
     {
-      Console.WriteLine("---disposing context---");
       _context.Dispose();
     }
 
