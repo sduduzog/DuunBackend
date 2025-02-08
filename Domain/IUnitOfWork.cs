@@ -1,5 +1,4 @@
-using Application;
-
+namespace Domain;
 public interface IUnitOfWork : IDisposable
 {
   IChoreRepository Chores { get; }

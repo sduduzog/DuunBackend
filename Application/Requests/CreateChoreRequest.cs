@@ -11,8 +11,10 @@ public sealed class CreateChoreRequestHandler(IUnitOfWork unitOfWork) : IRequest
   private readonly IUnitOfWork _unitOfWork = unitOfWork;
   public async ValueTask<Chore?> Handle(CreateChoreRequest request, CancellationToken cancellationToken)
   {
-    var entityEntry = _unitOfWork.Chores.Create(request.Title);
-    await _unitOfWork.SaveChangesAsync(cancellationToken);
-    return await _unitOfWork.Chores.FindOne(entityEntry.Entity.Id);
+    var newChore = await _unitOfWork.Chores.Create(request.Title);
+    var count = await _unitOfWork.SaveChangesAsync(cancellationToken);
+    if (count > 0)
+      return newChore;
+    return null;
   }
 }

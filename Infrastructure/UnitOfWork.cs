@@ -1,4 +1,4 @@
-using Application;
+using Domain;
 using Infrastructure;
 
 public class UnitOfWork(ApplicationDbContext context) : IUnitOfWork

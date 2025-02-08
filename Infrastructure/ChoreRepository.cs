@@ -1,6 +1,4 @@
-using Application;
 using Domain;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Infrastructure;
@@ -10,10 +8,11 @@ public class ChoreRepository(ApplicationDbContext context) : IChoreRepository
 
   private readonly ApplicationDbContext _context = context;
 
-  public EntityEntry<Chore> Create(string title)
+  public async ValueTask<Chore> Create(string title)
   {
     var newChore = new Chore(Guid.Empty, title);
-    return _context.Chores.Add(newChore);
+    await _context.Chores.AddAsync(newChore);
+    return newChore;
   }
 
   public IEnumerable<Chore> FindAll()
